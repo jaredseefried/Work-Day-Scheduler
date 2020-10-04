@@ -3,12 +3,15 @@ $(document).ready(function(){
 // Global Variables
 var hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
+var i = 0;
+
 var officeHours = ["8:00 a.m.", "9:00 a.m.", "10:00 a.m.", "11:00 a.m.", "12:00 p.m.", "01:00 p.m.", "02:00 p.m.", "03:00 p.m.", "04:00 p.m.", "05:00 p.m.",] 
 
-var workDayNotes = [];
+scheduledEvents = {};
+
+
 
 $("#currentDay").text(dayjs().format("dddd, MMMM D YYYY"))
-
 
 function updateTime(){
     var currentTime = dayjs().format("H");
@@ -43,6 +46,7 @@ for (i=0; i < hours.length; i++ ){
         description.attr("id", "description"+hours[i]);
         description.attr("placeholder", "Enter a scheduling item for this time slot.")
         newDiv.append(description);
+        
     
     //The save button
     var savebtn = $("<button>");
@@ -50,22 +54,26 @@ for (i=0; i < hours.length; i++ ){
         savebtn.attr("id", "savebtn"+hours[i])
         savebtn.text("Save");
         newDiv.append(savebtn);
-    
-    
-        $(savebtn).click(function(e){
-    e.preventDefault();
-    console.log("click");
-    
-        
-     });
-}
+        $("#savebtn"+hours[i]).click(function(){
+        var userData = $(this).siblings(".description").val();
+        key = $(this).parent().attr("id");
+        scheduledEvents[key] = userData;
+        saveToLocalStorage();
+        var storage = localStorage.getItem(scheduledEvents);
+            if (storage !== null){
+            scheduledEvents = JSON.parse(storage);
+            }
+        });
+       
+    }
 
-
-
+    function saveToLocalStorage(){
+    localStorage.setItem("events", JSON.stringify(scheduledEvents));
+    }
 
     
+
 });
-
 
 
 
