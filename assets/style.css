@@ -67,6 +67,8 @@ body {
     background-color: #06AED5;
     color: white;
     border: none;
+    font-size: large;
+    font-weight: bold;
   }
   
   .saveBtn i:hover {
@@ -77,4 +79,20 @@ body {
   #currentDay{
       font-size:24px;
       font-weight: bold;
+  }
+
+  @media only screen and (max-width: 600px){
+    .hour {
+        padding: 26px 0px;
+        font-size: 14px;
+    }
+
+    .time-block{
+        margin: 5px 0px;
+    }
+
+    .saveBtn{
+        padding: 10px 0px;
+    font-weight: bold;
+    }
   }
